@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Store</title>
+    <link rel="stylesheet" type="text/css" href="static/styles.css">
+
+</head>
+<body>
+    <header>
+        <h1>Clothing Store</h1>
+        {{ if .loggedIn }}
+        <h2>Welcome Back {{ .username }}!</h2>
+        {{ end }}
+        <nav>
+            <ul>
+                <li><a href="/web">Home</a></li>
+                
+                {{ if .loggedIn }}
+                <li><a href="/cart">My Cart</a></li>
+                {{ end }}
+
+                {{ if not .loggedIn }}
+                <li><a href="/signup">Signup</a></li>
+                {{ end }}
+
+                {{ if not .loggedIn }}
+                <li><a href="/login">Login</a></li>
+                {{ end }}
+                <li><a href="/ShowPagination">Datatable</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="product-list">
+        
+            <form action="/Add_to_cart" method="post">
+                <input type="hidden" name="product" value="Product 1">
+                <input type="hidden" name="price" value="$29.99">
+                <div class="product-card">
+                    <img src="static/product1.jpg" alt="Product 1" height="400" width="400">
+                    <h2>Product 1</h2>
+                    <p>$29.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </form>
+
+            <form action="/Add_to_cart" method="post">
+                <input type="hidden" name="product" value="Product 1">
+                <input type="hidden" name="price" value="$29.99">
+                <div class="product-card">
+                    <img src="static/product2.jpg" alt="Product 1" height="400" width="400">
+                    <h2>Product 2</h2>
+                    <p>$29.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </form>
+
+            <form action="/Add_to_cart" method="post">
+                <input type="hidden" name="product" value="Product 1">
+                <input type="hidden" name="price" value="$29.99">
+                <div class="product-card">
+                    <img src="static/product3.jpg" alt="Product 1" height="400" width="400">
+                    <h2>Product 3</h2>
+                    <p>$29.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </form>
+
+            <form action="/Add_to_cart" method="post">
+                <input type="hidden" name="product" value="Product 1">
+                <input type="hidden" name="price" value="$29.99">
+                <div class="product-card">
+                    <img src="static/product4.jpg" alt="Product 1" height="400" width="400">
+                    <h2>Product 4</h2>
+                    <p>$29.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </form>  
+
+            <form action="/Add_to_cart" method="post">
+                <input type="hidden" name="product" value="Product 1">
+                <input type="hidden" name="price" value="$29.99">
+                <div class="product-card">
+                    <img src="static/product5.jpg" alt="Product 1" height="400" width="400">
+                    <h2>Product 5</h2>
+                    <p>$29.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </form>
+
+            <form action="/Add_to_cart" method="post">
+                <input type="hidden" name="product" value="Product 1">
+                <input type="hidden" name="price" value="$29.99">
+                <div class="product-card">
+                    <img src="static/product6.jpg" alt="Product 1" height="400" width="400">
+                    <h2>Product 6</h2>
+                    <p>$29.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </form> 
+
+            <form action="/Add_to_cart" method="post">
+                <input type="hidden" name="product" value="Product 1">
+                <input type="hidden" name="price" value="$29.99">
+                <div class="product-card">
+                    <img src="static/product7.jpg" alt="Product 1" height="400" width="400">
+                    <h2>Product 7</h2>
+                    <p>$29.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </form>
+
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Clothing Store</p>
+    </footer>
+</body>
+</html>

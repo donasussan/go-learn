@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>User Data</title>
+
+    <style>
+
+        /* Style the table */
+
+        #people-table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 20px;
+
+        }
+
+ 
+
+        #people-table th, #people-table td {
+
+            border: 1px solid #ddd;
+
+            padding: 8px;
+
+            text-align: left;
+
+        }
+
+ 
+
+        #people-table th {
+
+            background-color: #f2f2f2;
+
+        }
+
+ 
+
+        #people-table tr:nth-child(even) {
+
+            background-color: #f2f2f2;
+
+        }
+
+ 
+
+        /* Style the pagination buttons */
+
+        #pagination {
+
+            margin-top: 20px;
+
+            text-align: center;
+
+        }
+
+ 
+
+        #prev-btn, #next-btn {
+
+            padding: 10px 20px;
+
+            background-color: #007BFF;
+
+            color: #fff;
+
+            border: none;
+
+            cursor: pointer;
+
+            margin: 0 10px;
+
+        }
+
+ 
+
+        #prev-btn:hover, #next-btn:hover {
+
+            background-color: #0056b3;
+
+        }
+
+ 
+
+        /* Center the table and pagination */
+
+        body {
+
+            text-align: center;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>User Data</h1>
+
+    <table id="people-table">
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Name</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <!-- Data will be populated here using AJAX -->
+
+        </tbody>
+
+    </table>
+
+    <div id="pagination">
+
+        <button id="prev-btn">Previous</button>
+
+        <button id="next-btn">Next</button>
+
+    </div>
+    <script>
+    let currentPage = 1;
+    let count_row =1;
+    const pageSize = 10; // Change this to your desired page size
+    const tableBody = document.querySelector('#people-table tbody');
+    function fetchData() {
+
+        fetch(`/api/data?page=${currentPage}&pageSize=${pageSize}`)
+            .then(response => response.json())
+            .then(data => {
+                tableBody.innerHTML = ''; // Clear existing data
+                data.data.forEach(item => {
+                    const row = document.createElement('tr');
+
+                    row.innerHTML = `
+                        <td>${item.id}</td>
+                        <td>${item.username}</td>
+                        <td>
+                         <button onclick="updateUser(${item.id})">Update</button>
+                         <button onclick="deleteUser(${item.id})">Delete</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+                count_row=data.count
+                pageval=count_row/pageSize
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+     document.querySelector('#prev-btn').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            fetchData();
+        }
+    });
+    document.querySelector('#next-btn').addEventListener('click', () => {
+        if(currentPage < pageval) {
+        currentPage++;
+        fetchData();}
+    });
+
+    function deleteUser(userId) {
+    if (confirm(`Are you sure you want to delete user with ID ${userId}?`)) {
+        fetch(`/deleteUser?id=${userId}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Delete request failed');
+            }
+        })
+        .then(data => {
+            alert(`User with ID ${userId} has been deleted.`);
+            // Optionally, update the UI to reflect the deleted user
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to delete user.');
+        });
+    }
+}
+
+    fetchData();
+    </script>
+
+</body>
+
+</html>

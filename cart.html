@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart</title>
+    <link rel="stylesheet" type="text/css" href="static/styles.css">
+
+</head>
+<body>
+    <header>
+        <h1>My Cart</h1>
+        <nav>
+            <ul>
+                <li><a href="/web">Home</a></li>
+                <li><a href="/cart">My Cart</a></li>
+
+    </header>
+
+    <main>
+        <section class="cart-items">
+            <h1>Shopping Cart</h1>
+
+            {{ if .cartItems }}
+            <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                </tr>
+                {{ range .cartItems }}
+                <tr>
+                    <td>{{ .product }}</td>
+                    <td>{{ .price }}</td>
+                    <td><img src="{{ .ImagePath }}" alt="{{ .product }}"></td>
+                </tr>
+                {{ end }}
+            </table>
+            {{ else }}
+            <p>Your shopping cart is empty.</p>
+            {{ end }}
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Clothing Store</p>
+    </footer>
+</body>
+</html>
+
